@@ -135,3 +135,10 @@ INSERT INTO commentaire (id_cmt, contenu_cmt, date_creation_cmt, id_article, use
 
 
 alter table article add statu varchar(30) DEFAULT "published";
+
+alter table users add passwords varchar(30) DEFAULT "user1234"
+
+update users set users.password="admin1234" WHERE users.estAdmin=1;
+
+
+
