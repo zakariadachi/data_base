@@ -140,5 +140,13 @@ alter table users add passwords varchar(30) DEFAULT "user1234"
 
 update users set users.password="admin1234" WHERE users.estAdmin=1;
 
+ALTER TABLE `commentaire` CHANGE `date_creation_cmt` `date_creation_cmt` date default (current_date);
+
+-- 1. INSERT - Création d'un nouvel utilisateur
+
+INSERT INTO `users`(`nom`, `prenom`, `user_name`, `email`, `estAdmin`, `passwords`) VALUES ("jud","pont","jdupont","jean.dupont@email.com",0, "$2y$10$...");
+
+
+
 
 
