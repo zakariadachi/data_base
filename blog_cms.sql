@@ -64,13 +64,13 @@ INSERT INTO users (nom, prenom, user_name, email, date_inscricption, estAdmin) V
 
 INSERT INTO categorie (id_categorie, nom_categorie) VALUES
 (1, 'Technologie'),
-(2, 'Santé'),
-(3, 'Voyage'),
-(4, 'Cuisine'),
-(5, 'Sport'),
-(6, 'Éducation'),
-(7, 'Finance'),
-(8, 'Mode');
+(2, 'php'),
+(3, 'c'),
+(4, 'javascript'),
+(5, 'css'),
+(6, 'base de donnee'),
+(7, 'python'),
+(8, 'html');
 
 
 
@@ -142,9 +142,73 @@ update users set users.password="admin1234" WHERE users.estAdmin=1;
 
 ALTER TABLE `commentaire` CHANGE `date_creation_cmt` `date_creation_cmt` date default (current_date);
 
+ALTER table commentaire add statu varchar(20) DEFAULT "approved";
+
 -- 1. INSERT - Création d'un nouvel utilisateur
 
 INSERT INTO `users`(`nom`, `prenom`, `user_name`, `email`, `estAdmin`, `passwords`) VALUES ("jud","pont","jdupont","jean.dupont@email.com",0, "$2y$10$...");
+
+
+-- 2. SELECT - Récupération d'articles
+
+SELECT article.titre,article.date_creation,article.statu FROM article;
+
+
+-- 3. UPDATE - Modification de statut
+
+UPDATE article SET statu ="archive" WHERE article.statu="dropped";
+
+
+-- 4. DELETE - Nettoyage des commentaires
+
+DELETE FROM commentaire WHERE statu="spam"
+
+-- 5. WHERE - Filtrage temporel
+
+SELECT * FROM article WHERE article.date_creation>"2024-12-01";
+
+-- 6. ORDER BY - Tri chronologique
+
+SELECT * FROM users WHERE 1 ORDER BY users.date_inscricption 
+
+-- 7. LIMIT - Articles récents
+
+SELECT article.titre,article.date_creation FROM article WHERE 1 ORDER BY article.date_creation DESC LIMIT 5;
+
+
+
+-- 9. AND/OR - Articles par catégorie et statut
+
+
+SELECT * from article where article.id_categorie=1 and (article.statu="dropped" or article.statu="dropped")
+
+
+-- Lister les commentaires postés entre le 1er et le 15 décembre 2024
+
+SELECT * from commentaire where commentaire.date_creation_cmt BETWEEN "2024-12-01" and "2024-12-15";
+
+
+-- Trouver les articles appartenant aux catégories "PHP", "JavaScript" ou "Base de données"
+
+SELECT * from article WHERE article.id_categorie=2 or article.id_categorie=4 or article.id_categorie=6;
+
+
+-- Rechercher tous les utilisateurs dont l'email finit par "@gmail.com"
+
+SELECT * from users WHERE users.email LIKE "%@gmail.com";
+
+-- 13. COUNT() - Statistique articles
+
+-- Compter le nombre total d'articles publiés
+
+SELECT COUNT(*) from article WHERE article.statu="published";
+
+
+-- 14. COUNT() avec GROUP BY - Articles par catégorie
+
+SELECT article.id_categorie, COUNT(*) from article GROUP BY article.id_categorie;
+
+
 
 
 
