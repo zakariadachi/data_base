@@ -175,7 +175,9 @@ SELECT * FROM users WHERE 1 ORDER BY users.date_inscricption
 
 SELECT article.titre,article.date_creation FROM article WHERE 1 ORDER BY article.date_creation DESC LIMIT 5;
 
+-- 8. DISTINCT - Rôles uniques
 
+SELECT DISTINCT estAdmin FROM users;
 
 -- 9. AND/OR - Articles par catégorie et statut
 
@@ -207,6 +209,10 @@ SELECT COUNT(*) from article WHERE article.statu="published";
 -- 14. COUNT() avec GROUP BY - Articles par catégorie
 
 SELECT article.id_categorie, COUNT(*) from article GROUP BY article.id_categorie;
+
+-- 15. AVG() - Longueur moyenne des articles
+
+SELECT AVG(article.contenu) FROM article where article.statu="published";
 
 
 
